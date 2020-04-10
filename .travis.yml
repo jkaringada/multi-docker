@@ -3,7 +3,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t jbkar1/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t jbkar1/react-test -f ./client/Dockerfile.dev  ./client
 
 script:
    - docker run -e CI=true jbkar1/react-test npm test   
@@ -21,3 +21,16 @@ after_success:
   - docker push jbkar1/multi-nginx
   - docker push jbkar1/multi-server
   - docker push jbkar1/multi-worker
+
+deploy:
+  edge: true
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "Multi-Docker"
+  env: "MultiDocker-env"
+  bucket_name: "elasticbeanstalk-us-east-2-459116982417"
+  bucket_path: "docker-multi"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY    

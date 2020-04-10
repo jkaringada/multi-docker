@@ -13,6 +13,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <Link to="/">Home</Link>
         <Link to="/otherpage">Other Page</Link>
+        <p>this is a test</p>
       </header>
       <div>
         <Route exaxt path="/" component={Fib }/>
